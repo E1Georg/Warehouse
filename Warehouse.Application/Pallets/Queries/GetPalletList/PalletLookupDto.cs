@@ -16,6 +16,7 @@ namespace Warehouse.Application.Pallets.Queries.GetPalletList
         [DataType(DataType.Date)]
         public DateTime expiration_date { get; set; }
         public List<Box>? Boxes { get; set; }
+        public double volume = 0;
 
         public void Mapping(Profile profile)
         {
