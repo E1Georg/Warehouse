@@ -6,10 +6,6 @@ using Warehouse.Application.Pallets.Commands.UpdatePallet;
 using Warehouse.Application.Pallets.Commands.DeletePallet;
 using Warehouse.WebProject.Models.Pallet;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Warehouse.Domain;
-using System;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Warehouse.WebProject.Models.Box;
 using System.ComponentModel.DataAnnotations;
 using Warehouse.Application.Boxes.Commands.CreateBox;
@@ -23,6 +19,7 @@ namespace Warehouse.WebProject.Controllers
         private readonly IMapper _mapper;
         public PalletController(IMapper mapper) => _mapper = mapper;
 
+         // Task 1
         public async Task<IActionResult> palletsGroup_Task1()
         {
             var query = new GetPalletListQuery { };
@@ -37,14 +34,24 @@ namespace Warehouse.WebProject.Controllers
             return View(results);
         }
 
+       // Task 2
         public async Task<IActionResult> pallets_Task2()
         {
             var query = new GetPalletListQuery { };
             var vm = await Mediator.Send(query);
 
+            foreach (var pallet in vm.Pallets)
+            {
+                pallet.volume = pallet.depth * pallet.height * pallet.width;
+                foreach (var box in pallet.Boxes)
+                    pallet.volume += box.depth * box.height * box.width;
+
+                pallet.volume = Math.Round(pallet.volume, 2);
+            }            
+
             var results = vm.Pallets
                 .OrderByDescending(i => i.expiration_date)
-                .ThenBy(i => i.width * i.height * i.depth).Take(3).ToList();
+                .ThenBy(i => i.volume).Take(3).ToList();
 
             return View(results);
         }
@@ -60,45 +67,41 @@ namespace Warehouse.WebProject.Controllers
 
             Guid palletId;
             Guid boxId;
+            DateTime tmp_production_date;
 
-            List<Guid> pallets = new List<Guid>();
             var random = new Random();
 
             for (int i = 0; i < 5; i++)
             {
                 pallet = new CreatePalletDto()
                 {
-                    width = Math.Round((random.NextDouble() * (5000 - 75)) + 75, 2),
-                    height = Math.Round((random.NextDouble() * (5000 - 75)) + 75, 2),
-                    depth = Math.Round((random.NextDouble() * (5000 - 75)) + 75, 2)                   
-            };
+                    width = Math.Round((random.NextDouble() * (600 - 200)) + 200, 2),
+                    height = Math.Round((random.NextDouble() * (600 - 200)) + 200, 2),
+                    depth = Math.Round((random.NextDouble() * (600 - 200)) + 200, 2)                   
+                };
 
                 command_pallet = _mapper.Map<CreatePalletCommand>(pallet);
                 command_pallet.ID = Id;                
 
                 palletId = await Mediator.Send(command_pallet);
-                pallets.Add(palletId);
-            }
 
-            DateTime tmp_production_date;
-            foreach (var item in pallets)
-                for (int i = 0; i < 2; i++)
+                for (int j = 0; j < 2; j++)
                 {
                     tmp_production_date = (new DateTime(2023, 8, 1)).AddDays(random.Next(1, 7));
 
                     box = new CreateBoxDto()
                     {
-                        width = Math.Round((random.NextDouble() * (5000 - 75)) + 75, 2),
-                        height = Math.Round((random.NextDouble() * (5000 - 75)) + 75, 2),
-                        depth = Math.Round((random.NextDouble() * (5000 - 75)) + 75, 2),
-                        weight = Math.Round((random.NextDouble() * (5000 - 75)) + 75, 2),
-                        production_date = tmp_production_date, 
-                        expiration_date= tmp_production_date.AddDays(100),
-                        PalletID_string = ""                       
+                        width = Math.Round((random.NextDouble() * (200 - 30)) + 30, 2),
+                        height = Math.Round((random.NextDouble() * (200 - 30)) + 30, 2),
+                        depth = Math.Round((random.NextDouble() * (200 - 30)) + 30, 2),
+                        weight = Math.Round((random.NextDouble() * (50 - 1)) + 1, 2),
+                        production_date = tmp_production_date,
+                        expiration_date = tmp_production_date.AddDays(100),
+                        PalletID_string = ""
                     };
 
                     command_box = _mapper.Map<CreateBoxCommand>(box);
-                    command_box.PalletID = item;
+                    command_box.PalletID = palletId;
                     boxId = await Mediator.Send(command_box);
 
                     command_change = _mapper.Map<ChangePalletCommand>(box);
@@ -106,6 +109,7 @@ namespace Warehouse.WebProject.Controllers
                     await Mediator.Send(command_change);
                 }
 
+            }
             return RedirectToAction(nameof(Index));
         }        
 
