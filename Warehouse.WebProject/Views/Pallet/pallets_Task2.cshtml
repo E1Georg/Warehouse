@@ -30,7 +30,7 @@
                     <td>
                         @Html.Raw(pallet.depth + " x " + pallet.width + " x " + pallet.height)
                         <br />
-                        @Html.Raw("V = " + (pallet.depth * pallet.width * pallet.height).ToString())
+                        @Html.Raw("V = " + (pallet.volume).ToString())
                     </td>                  
                     <td>
                         @{
