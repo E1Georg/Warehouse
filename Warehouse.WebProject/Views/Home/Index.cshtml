@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <p class="display-4">Welcome to warehouse</p>    
+</div>
+
+<table class="table">
+    <thead>        
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td>@Html.ActionLink("Реестр паллетов", "Index", "Pallet")</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>@Html.ActionLink("Список коробок", "Index", "Box")</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>@Html.ActionLink("Группировка паллетов - Task 1", "palletsGroup_Task1", "Pallet")</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>@Html.ActionLink("3 паллеты - Task 2", "pallets_Task2", "Pallet")</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>@Html.ActionLink("Сгенерировать данные(паллеты + коробки)", "generatePalletsAndBoxes", "Pallet")</td>
+        </tr>
+    </tbody>
+</table>

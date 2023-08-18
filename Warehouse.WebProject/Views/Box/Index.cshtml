@@ -1,0 +1,57 @@
+﻿@using Warehouse.Application.Boxes.Queries.GetBoxList;
+
+
+@{
+    ViewData["Title"] = "Список коробок - Главная";
+}
+
+<h3>Список коробок</h3>
+
+<p><a asp-action="Create">Добавить коробку</a></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Порядковый <br />номер</th>
+            <th>Габариты, <br /> глубина x ширина x высота</th>
+            <th>Масса коробки</th>
+            <th>Дата производства</th>
+            <th>Срок годности</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            int boxCounter = 0;
+
+            foreach (var box in Model as List<BoxLookupDto>)
+            {
+                boxCounter++;
+
+                <tr>
+                    <td>
+                        @Html.Raw(boxCounter.ToString() + ".")
+                    </td>
+                    <td>
+                        @Html.Raw(box.depth + " x " + box.width + " x " + box.height)
+                    </td>
+                    <td>
+                        @Html.Raw(box.weight)
+                    </td>
+                    <td>
+                        @Html.Raw(box.production_date.ToShortDateString())
+                    </td>
+                    <td>
+                        @Html.Raw(box.expiration_date.ToShortDateString())
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@box.ID">Редактировать</a> |
+                        <a asp-action="Details" asp-route-id="@box.ID">Подробно</a> |
+                        <a asp-action="Delete" asp-route-id="@box.ID">Удалить</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

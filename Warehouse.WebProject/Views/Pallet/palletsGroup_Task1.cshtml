@@ -1,0 +1,70 @@
+﻿@using Warehouse.Application.Pallets.Queries.GetPalletList;
+
+@{
+    ViewData["Title"] = "Task 1";
+}
+
+<h3>Task 1</h3>
+<p>Сгруппировать все паллеты по сроку годности, отсортировать по возрастанию срока годности, в каждой группе отсортировать паллеты по весу</p>
+
+
+<table class="table">
+    <thead>
+        <tr>   
+            <th>Порядковый <br />номер</th>
+            <th>Габариты, <br /> глубина x ширина x высота</th>
+            <th>Масса паллеты</th>
+            <th>Срок годности</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int palletCounter = 0;
+            int groupCounter = 0;
+
+            foreach (var group in Model)
+            {
+                palletCounter = 0;
+                groupCounter++;
+
+                @foreach (var pallet in group)
+                {
+                    palletCounter++;
+
+                    <tr>                       
+                        <td>
+                            @Html.Raw($"{groupCounter}.{palletCounter}")
+                        </td>
+                        <td>
+                            @Html.Raw(pallet.depth + " x " + pallet.width + " x " + pallet.height)
+                        </td>
+                        <td>
+                            @Html.Raw(pallet.weight)
+                        </td>
+                        <td>
+                            @{
+                                if (pallet.expiration_date == DateTime.MinValue)
+                                    @Html.Raw("Нет")
+                                else
+                                    @Html.Raw(pallet.expiration_date.ToShortDateString())
+                            }
+                        </td>
+                    </tr>
+                }
+
+                
+               
+                
+            
+                    
+                     
+             
+
+               
+             
+            }
+
+         
+        }
+    </tbody>
+</table>

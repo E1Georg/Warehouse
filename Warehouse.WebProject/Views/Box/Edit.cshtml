@@ -1,0 +1,71 @@
+﻿@model Warehouse.WebProject.Models.Box.UpdateBoxDto
+@{
+    ViewData["Title"] = "Редактирование информации о коробке";
+}
+
+<h3>Редактирование информации о коробке</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ID" class="control-label">ИД коробки:</label>
+                <input asp-for="ID" class="form-control" value="@Model.ID" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="depth" class="control-label">Глубина коробки:</label>
+                <input asp-for="depth" class="form-control" value="@Model.depth" />
+                <span asp-validation-for="depth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="width" class="control-label">Ширина коробки:</label>
+                <input asp-for="width" class="form-control" value="@Model.width" />
+                <span asp-validation-for="width" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="height" class="control-label">Высота коробки:</label>
+                <input asp-for="height" class="form-control" value="@Model.height" />
+                <span asp-validation-for="height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="weight" class="control-label">Масса коробки:</label>
+                <input asp-for="weight" class="form-control" value="@Model.weight" />
+            </div>
+            <div class="form-group">
+                <label asp-for="expiration_date" class="control-label">Срок годности:</label>
+                <input asp-for="expiration_date" class="form-control" type="date" />
+                <span asp-validation-for="expiration_date" class="text-danger"></span> 
+            </div>
+            <div class="form-group">
+                <label asp-for="production_date" class="control-label">Дата изготовления:</label>
+                <input asp-for="production_date" class="form-control" type="date" />
+                <span asp-validation-for="production_date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PalletID_string" class="control-label">Выберите паллет для коробки:</label>
+                <select asp-for="PalletID_string" class="form-control" asp-items="@Model.Pallets"> 
+                    <option>@Html.Raw(Model.Pallets.Where(x => x.Value == Model.PalletID.ToString()).First().Text)</option>
+                </select>
+                <span asp-validation-for="PalletID_string" class="text-danger"></span>
+            </div>
+              <div class="form-group">
+                <input type="hidden" asp-for="PalletID" value="@Model.PalletID" />                
+            </div>
+            <hr />
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться к списку коробок</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

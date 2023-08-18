@@ -1,0 +1,55 @@
+﻿@model Warehouse.WebProject.Models.Pallet.UpdatePalletDto
+@{
+    ViewData["Title"] = "Редактирование информации о паллете";
+}
+
+<h3>Редактирование информации о паллете</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ID" class="control-label">ИД паллета:</label>
+                <input asp-for="ID" class="form-control" value="@Model.ID" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="depth" class="control-label">Глубина паллета:</label>
+                <input asp-for="depth" class="form-control" value="@Model.depth" />
+                <span asp-validation-for="depth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="width" class="control-label">Ширина паллета:</label>
+                <input asp-for="width" class="form-control" value="@Model.width" />
+                <span asp-validation-for="width" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="height" class="control-label">Высота паллета:</label>
+                <input asp-for="height" class="form-control" value="@Model.height" />
+                <span asp-validation-for="height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="weight" class="control-label">Масса паллета:</label>
+                <input asp-for="weight" class="form-control" value="@Model.weight" readonly />
+            </div>
+             <div class="form-group">
+                <label asp-for="expiration_date" class="control-label">Срок годности:</label>
+                <input asp-for="expiration_date" class="form-control"  type="text" value="@Model.expiration_date.ToShortDateString()" readonly />
+            </div> 
+            <hr />          
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться к реестру паллетов</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

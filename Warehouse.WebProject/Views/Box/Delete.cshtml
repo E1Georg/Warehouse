@@ -1,0 +1,55 @@
+﻿@model Warehouse.WebProject.Models.Box.UpdateBoxDto
+﻿
+@{
+    ViewData["Title"] = "Удаление коробки";
+}
+
+<h3>Вы действительно хотите удалить выбранную коробку?</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ИД коробки:</dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+
+        <dt class="col-sm-2">Глубина коробки:</dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.depth)
+        </dd>
+
+        <dt class="col-sm-2">Ширина коробки:</dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.width)
+        </dd>
+
+        <dt class="col-sm-2">Высота коробки:</dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.height)
+        </dd>
+
+        <dt class="col-sm-2">Масса коробки:</dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.weight)
+        </dd>
+
+        <dt class="col-sm-2">Срок годности коробки:</dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.expiration_date)
+        </dd>
+
+        <dt class="col-sm-2">ИД паллета:</dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PalletID_string)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" method="post" asp-route-ID="@Model.ID">
+        <div class="form-group">
+            <input type="hidden" asp-for="ID" />
+            <input type="submit" value="Удалить" class="btn btn-danger" /> |
+            <a asp-action="Index">Вернуться к списку коробок</a>
+        </div>
+    </form>
+</div>

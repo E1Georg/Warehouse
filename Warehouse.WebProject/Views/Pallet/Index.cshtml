@@ -1,0 +1,58 @@
+﻿@using Warehouse.Application.Pallets.Queries.GetPalletList;
+
+
+@{
+    ViewData["Title"] = "Реестр паллет - Главная";
+}
+
+<h3>Реестр паллет</h3>
+
+<p><a asp-action="Create">Добавить паллету</a></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Порядковый <br />номер</th>
+            <th>Габариты, <br /> глубина x ширина x высота</th>
+            <th>Масса паллеты</th>
+            <th>Срок годности</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>  
+
+        @{         
+            int palletCounter = 0;
+
+            foreach (var pallet in Model as List<PalletLookupDto>)
+            {
+                palletCounter++;
+
+                <tr>
+                    <td>
+                        @Html.Raw(palletCounter.ToString() + ".")
+                    </td>
+                     <td>
+                        @Html.Raw(pallet.depth + " x " + pallet.width + " x " + pallet.height)
+                    </td>
+                    <td>
+                        @Html.Raw(pallet.weight)
+                    </td>
+                    <td>
+                        @{
+                            if (pallet.expiration_date == DateTime.MinValue)
+                                @Html.Raw("Нет")
+                            else
+                                @Html.Raw(pallet.expiration_date.ToShortDateString())
+                       }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@pallet.ID">Редактировать</a> |
+                        <a asp-action="Details" asp-route-id="@pallet.ID">Подробно</a> |
+                        <a asp-action="Delete" asp-route-id="@pallet.ID">Удалить</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
