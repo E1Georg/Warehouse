@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Warehouse.Persistence", "Wa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Warehouse.WebProject", "Warehouse.WebProject\Warehouse.WebProject.csproj", "{988E30C4-A627-4ABB-A0C7-FC2203A69CC6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6E52AB36-51BA-46AA-9E7A-448216AFC5D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Warehouse.Tests", "Warehouse.Tests\Warehouse.Tests.csproj", "{0F352BDB-7821-479D-B44C-814E97DAEB65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{988E30C4-A627-4ABB-A0C7-FC2203A69CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{988E30C4-A627-4ABB-A0C7-FC2203A69CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{988E30C4-A627-4ABB-A0C7-FC2203A69CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F352BDB-7821-479D-B44C-814E97DAEB65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F352BDB-7821-479D-B44C-814E97DAEB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F352BDB-7821-479D-B44C-814E97DAEB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F352BDB-7821-479D-B44C-814E97DAEB65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{7A36E0C9-9B2D-4AB3-ABDD-FD4EDB69B382} = {3768E185-57ED-4A29-9326-57AFE5045240}
 		{80604B15-0AB8-4F86-B422-2933D2D6677B} = {84855413-7924-44FD-9EA3-2652A81D1D50}
 		{988E30C4-A627-4ABB-A0C7-FC2203A69CC6} = {947E69E5-9894-474B-A7D9-994D7F901312}
+		{0F352BDB-7821-479D-B44C-814E97DAEB65} = {6E52AB36-51BA-46AA-9E7A-448216AFC5D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09D0ECC3-A424-4C7D-80F5-08322A983062}
