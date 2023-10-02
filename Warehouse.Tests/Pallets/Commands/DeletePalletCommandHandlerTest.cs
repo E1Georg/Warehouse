@@ -18,7 +18,7 @@ namespace Warehouse.Tests.Pallets.Commands
             // Act
             await handler.Handle(new DeletePalletCommand
             {
-                ID = Guid.NewGuid(),
+                ID = new Guid("5a19c13d-cab0-467b-8776-423eaee61f2a"),
             },
             CancellationToken.None);
 

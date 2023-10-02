@@ -31,7 +31,7 @@ namespace Warehouse.WebProject.Controllers
                .GroupBy(p => p.expiration_date)
                .ToList();
 
-            return View(results);
+            return View(results);            
         }
 
        // Task 2

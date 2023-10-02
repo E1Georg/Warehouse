@@ -14,24 +14,29 @@ namespace Warehouse.Tests.Pallets.Commands
         {
             // Arrange
             var handler = new UpdatePalletCommandHandler(Context);
-            var updateTitle = "New Title";
+            var palletID_test = new Guid("1a19c13d-cab0-467b-8776-423eaee61f2a");
+            var pallet_width_test = 8000;
+            var pallet_height_test = 8000;
+            var pallet_depth_test = 8000;
+
 
             // Act
             await handler.Handle(new UpdatePalletCommand
             {
-                ID = WarehouseContextFactory.EntityIdForUpdate,
-                depth = updateTitle.Length,
+                ID = new Guid("1a19c13d-cab0-467b-8776-423eaee61f2a"),
+                width = pallet_width_test,
+                height = pallet_height_test,
+                depth = pallet_depth_test
             },
             CancellationToken.None);
-
-            // Assert
+            
             // Assert
             Assert.NotNull(
                 await Context.Pallets.SingleOrDefaultAsync(pallet =>
-                pallet.ID == WarehouseContextFactory.EntityIdForUpdate &&
-                                        pallet.depth == 123));
-
-
+                pallet.ID == palletID_test &&
+                pallet.width == pallet_width_test &&
+                pallet.height == pallet_height_test &&
+                pallet.depth == pallet_depth_test));
         }
 
         [Fact]
@@ -49,7 +54,6 @@ namespace Warehouse.Tests.Pallets.Commands
                         ID = Guid.NewGuid(),
                     },
                     CancellationToken.None));
-
 
         }
 

@@ -32,13 +32,13 @@ namespace Warehouse.Tests.Pallets.Queries
             var result = await handler.Handle(
                 new GetPalletListQuery
                 {
-                    ID = WarehouseContextFactory.UserBId,
+                    ID = new Guid("2a19c13d-cab0-467b-8776-423eaee61f2a"),
                 },
                 CancellationToken.None);
 
             // Assert
             result.ShouldBeOfType<PalletListVm>();
-            result.Pallets.Count.ShouldBe(2);
+            result.Pallets.Count.ShouldBe(5);
         }
     }
 }

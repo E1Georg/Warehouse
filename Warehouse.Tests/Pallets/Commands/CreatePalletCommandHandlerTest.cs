@@ -12,25 +12,24 @@ namespace Warehouse.Tests.Pallets.Commands
         public async Task CreatePalletCommandHandler_Success()
         {
             // Arrange 
-            var handler = new CreatePalletCommandHandler(Context);
-            var palletName = "testPalletName";
-            var palletDetails = "testPalletDetails";
+            var handler = new CreatePalletCommandHandler(Context);                    
 
             // Act
             var palletId = await handler.Handle(
                 new CreatePalletCommand
                 {
-                    ID = Guid.NewGuid(),                   
+                    ID = new Guid("6a19c13d-cab0-467b-8776-423eaee61f2a"),
+                    width = 9000,
+                    height = 9000,
+                    depth = 9000,
+                    weight = 30                   
                 },
                 CancellationToken.None);
 
             // Assert
             Assert.NotNull(
                 await Context.Pallets.SingleOrDefaultAsync(pallet =>
-                                        pallet.ID.ToString() == palletName && 
-                                        pallet.depth.ToString() == palletDetails));
-
-
+                                        pallet.ID == palletId));
         }
     }
 }
