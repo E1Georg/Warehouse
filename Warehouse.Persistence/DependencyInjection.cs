@@ -12,9 +12,7 @@ namespace Warehouse.Persistence
         {
             var connectionString = configuration["DbConnection"];
             services.AddDbContext<WarehouseDbContext>(options => {
-                options.UseSqlServer(connectionString);
-
-                // IF [services.AddDbContext.Contains(SQLEXPRESS) => .UseSqlServer] ELSE [ .UseOtherManagers]
+                options.UseSqlServer(connectionString);              
             });
 
             services.AddScoped<IWarehouseDbContext>(provider => provider.GetService<WarehouseDbContext>());
